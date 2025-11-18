@@ -22,7 +22,7 @@ A full-stack chat application powered by Google Gemini API, built with React and
 ### Backend
 - Node.js
 - Express
-- Google Generative AI SDK
+- Google Gemini AI SDK (@google/genai)
 - CORS enabled
 
 ### DevOps
@@ -66,8 +66,8 @@ You will also need:
    ```
 
 4. **Access the application**
-   - Frontend: http://localhost
-   - Backend API: http://localhost:3000
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:5000
 
 5. **Stop the application**
    ```bash
@@ -95,7 +95,7 @@ You will also need:
    Edit `.env` and add your Gemini API key:
    ```
    GEMINI_API_KEY=your_actual_api_key_here
-   PORT=3000
+   PORT=5000
    NODE_ENV=development
    ```
 
@@ -103,7 +103,7 @@ You will also need:
    ```bash
    npm start
    ```
-   The backend will run on http://localhost:3000
+   The backend will run on http://localhost:5000
 
 #### Frontend Setup
 
@@ -121,19 +121,21 @@ You will also need:
    ```bash
    cp .env.example .env
    ```
-   Edit `.env` if needed (default is http://localhost:3000):
+   Edit `.env` if needed (default is http://localhost:5000):
    ```
-   VITE_BACKEND_URL=http://localhost:3000
+   VITE_BACKEND_URL=http://localhost:5000
    ```
 
 4. **Start the development server**
    ```bash
    npm run dev
    ```
-   The frontend will run on http://localhost:5173
+   The frontend will run on http://localhost:5173 (Vite dev server)
 
 5. **Open your browser**
    Navigate to http://localhost:5173 to use the application
+   
+   Note: When using Docker, the frontend runs on port 3000.
 
 ## Project Structure
 
@@ -188,11 +190,11 @@ chargenet/
 
 #### Backend (.env)
 - `GEMINI_API_KEY` - Your Google Gemini API key (required)
-- `PORT` - Server port (default: 3000)
+- `PORT` - Server port (default: 5000)
 - `NODE_ENV` - Environment mode (development/production)
 
 #### Frontend (.env)
-- `VITE_BACKEND_URL` - Backend API URL (default: http://localhost:3000)
+- `VITE_BACKEND_URL` - Backend API URL (default: http://localhost:5000)
 
 #### Docker (.env at root)
 - `GEMINI_API_KEY` - Your Google Gemini API key (required)
@@ -270,7 +272,7 @@ docker-compose down -v
 
 ### Backend won't start
 - Ensure your `GEMINI_API_KEY` is set correctly in `.env`
-- Check if port 3000 is already in use
+- Check if port 5000 is already in use
 - Verify Node.js version (v20 or higher)
 
 ### Frontend can't connect to backend
@@ -280,7 +282,7 @@ docker-compose down -v
 
 ### Docker issues
 - Ensure Docker and Docker Compose are installed
-- Check that ports 80 and 3000 are not in use
+- Check that ports 3000 and 5000 are not in use
 - Try rebuilding: `docker-compose up --build`
 
 ### API errors
