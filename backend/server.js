@@ -1,20 +1,22 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // Initialize Google Gemini AI
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -42,18 +44,16 @@ app.post('/api/chat', async (req, res) => {
 
     console.log(`Received message: ${message}`);
 
-    // Get the generative model
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    // Generate response using Gemini 2.5 Flash model
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: message,
+    });
 
-    // Generate response
-    const result = await model.generateContent(message);
-    const response = await result.response;
-    const text = response.text();
-
-    console.log(`Generated response: ${text.substring(0, 100)}...`);
+    console.log(`Generated response: ${response.text.substring(0, 100)}...`);
 
     res.json({ 
-      message: text,
+      message: response.text,
       timestamp: new Date().toISOString()
     });
 

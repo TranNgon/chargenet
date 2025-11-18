@@ -8,8 +8,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Get backend URL from environment or default to localhost
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+  // Get backend URL from environment or default to localhost:5000
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
 
   // Scroll to bottom when messages change
   const scrollToBottom = () => {
